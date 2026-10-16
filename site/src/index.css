@@ -18,4 +18,52 @@
   --color-blue-800: #105a80;
   --color-blue-900: #134b6a;
   --color-blue-950: #0d3348;
+
+  --animate-lc-fade-in: lc-fade-in 200ms ease-out both;
+  --animate-lc-slide-up: lc-slide-up 220ms ease-out both;
+  --animate-lc-slide-down: lc-slide-down 200ms ease-out both;
+
+  @keyframes lc-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes lc-slide-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes lc-slide-down {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Anel de foco visível e consistente para navegação por teclado. */
+  :focus-visible {
+    outline: 2px solid var(--color-blue-500);
+    outline-offset: 2px;
+    border-radius: 0.5rem;
+  }
+
+  /* Âncoras (#servicos, #web-dev…) ficam abaixo do cabeçalho fixo. */
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
