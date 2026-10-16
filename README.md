@@ -1,37 +1,32 @@
-# Learn Code — Plataforma Oficial
+# Learn Code — Site público
 
-Monorepo da plataforma da **Learn Code** (Marracuene, Moçambique): site público, portal do cliente, painel administrativo e API.
+Site institucional da **Learn Code** (Marracuene, Maputo, Moçambique): desenvolvimento de software, inteligência artificial e formação em programação.
 
-## Estrutura
+## Stack
 
-| Pasta | Aplicação | Stack | Deploy |
-|---|---|---|---|
-| [`site/`](site/) | Site público (aquisição de clientes) | React + Vite | Vercel |
-| [`portal/`](portal/) | Portal do Cliente (projectos, contratos, faturas, reuniões) | React + Vite | Vercel |
-| [`admin/`](admin/) | Painel Administrativo (gestão completa) | React + Vite | Vercel |
-| [`backend/`](backend/) | Learn Code API (autenticação, dados, PDFs de contratos) | FastAPI + MySQL | Railway |
+- React 19 + TypeScript, Vite 6, Tailwind CSS 4, react-router 7, lucide-react.
+- Sem backend: os formulários de contacto abrem o WhatsApp da Learn Code com a mensagem preenchida e oferecem email como alternativa.
 
-## Desenvolvimento local
+## Desenvolvimento
 
 ```bash
-# API (porta 8001) — ver backend/README.md para o setup completo
-cd backend && .venv/bin/uvicorn app.main:app --reload --port 8001
-
-# Site (3000) · Portal (3001) · Admin (3002)
-cd site   && npm install && npm run dev
-cd portal && npm install && npm run dev
-cd admin  && npm install && npm run dev
+cd site
+npm install
+npm run dev        # http://localhost:3000
+npm run lint       # tsc --noEmit
+npm run build      # gera dist/ (inclui robots.txt e sitemap.xml)
+npm run preview    # serve dist/
 ```
 
-Cada app tem um `.env.example` com as variáveis necessárias (`VITE_API_URL`, URLs cruzados entre apps).
+## Conteúdo
+
+- Textos, serviços, projectos e cursos: `site/src/data/mockData.ts`.
+- URL de produção, contactos e metadados por página: `site/src/config/site.ts`.
+- Imagem de partilha nas redes sociais: `site/public/og-image.png` (1200×630).
 
 ## Deploy
 
-Ver [DEPLOY.md](DEPLOY.md) — 3 projectos Vercel (um por app, com Root Directory próprio) + backend e MySQL no Railway.
-
-## Testes da API
-
-Colecção Bruno completa em [`backend/bruno/`](backend/bruno/) — 40 endpoints com payloads prontos e gestão automática de tokens.
+Ver [DEPLOY.md](DEPLOY.md).
 
 ---
 
