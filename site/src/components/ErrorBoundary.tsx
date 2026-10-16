@@ -27,7 +27,7 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren, Erro
             </p>
             <button
               onClick={() => window.location.reload()}
-              className="px-6 py-3 rounded-xl font-bold text-sm text-white bg-[#1a9cd8] hover:bg-[#29b6e8] transition-all cursor-pointer"
+              className="px-6 py-3 rounded-xl font-bold text-sm text-white bg-blue-700 hover:bg-blue-800 transition-all cursor-pointer"
             >
               Recarregar Página
             </button>

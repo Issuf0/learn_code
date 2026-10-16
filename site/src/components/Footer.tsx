@@ -1,7 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ArrowUp, Phone, Mail, MapPin, Facebook, Instagram } from 'lucide-react';
 import { COMPANY_INFO } from '../data/mockData';
+import { whatsappHref } from '../config/site';
 import logoFull from '../assets/images/learncode-logo.png';
 
 const FOOTER_LINKS = [
@@ -13,141 +14,89 @@ const FOOTER_LINKS = [
   { path: '/contacto', label: 'Contacto' },
 ];
 
-const SOLUTION_LINKS = [
-  { path: '/servicos', label: 'Websites & Portais' },
-  { path: '/servicos', label: 'Aplicações Móveis' },
-  { path: '/servicos', label: 'Sistemas Desktop' },
-  { path: '/servicos', label: 'Inteligência Artificial' },
-  { path: '/servicos', label: 'Design Gráfico' },
-  { path: '/cursos', label: 'Cursos de Programação' },
-];
+const linkClass = 'text-slate-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors';
 
 export const Footer: React.FC = () => {
-  const navigate = useNavigate();
-
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
   };
 
-  const linkClass =
-    'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer';
-
   return (
-    <footer className="bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400 pt-14 pb-6 border-t border-slate-200 dark:border-slate-800 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-
-        {/* Top Footer Row */}
-        <div className="grid grid-cols-2 lg:grid-cols-12 gap-x-6 gap-y-10 pb-10 border-b border-slate-200 dark:border-slate-800">
-
-          {/* Brand Column */}
-          <div className="col-span-2 lg:col-span-4 space-y-4 lg:pr-10">
-            <img src={logoFull} alt="Learn Code" className="h-12 w-auto" loading="lazy" />
-
-            <p className="text-sm leading-relaxed max-w-sm">
-              Startup tecnológica dedicada a impulsionar a transformação digital em Moçambique através de software, inteligência artificial e formação de talentos.
-            </p>
-
-            <div className="flex items-center gap-2 text-xs font-medium text-blue-600 dark:text-blue-400">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span>Maputo, Moçambique</span>
-            </div>
-
-            <div className="flex items-center gap-2 pt-1">
+    <footer id="rodape" className="bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400 pt-10 pb-[calc(1.25rem+env(safe-area-inset-bottom))] border-t border-slate-200 dark:border-slate-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 pb-8 border-b border-slate-200 dark:border-slate-800">
+          {/* Marca */}
+          <div className="space-y-3 md:max-w-sm">
+            <img src={logoFull} alt="Learn Code" width={181} height={96} className="h-10 w-auto" />
+            <p className="text-sm leading-relaxed">Software, inteligência artificial e formação em programação, de Moçambique para o mundo.</p>
+            <div className="flex items-center gap-2">
               <a
                 href={COMPANY_INFO.socials.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Facebook"
-                className="p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-300 dark:hover:border-blue-800 transition-colors shadow-sm"
+                aria-label="Learn Code no Facebook"
+                className="w-11 h-11 inline-flex items-center justify-center rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
               >
-                <Facebook className="w-4 h-4" />
+                <Facebook className="w-4 h-4" aria-hidden="true" />
               </a>
               <a
                 href={COMPANY_INFO.socials.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:text-pink-600 dark:hover:text-pink-400 hover:border-pink-300 dark:hover:border-pink-900 transition-colors shadow-sm"
+                aria-label="Learn Code no Instagram"
+                className="w-11 h-11 inline-flex items-center justify-center rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:text-pink-700 dark:hover:text-pink-400 transition-colors"
               >
-                <Instagram className="w-4 h-4" />
+                <Instagram className="w-4 h-4" aria-hidden="true" />
               </a>
             </div>
           </div>
 
-          {/* Navigation Quick Links */}
-          <div className="lg:col-span-2 space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">Navegação</h4>
-            <ul className="space-y-2.5 text-sm">
-              {FOOTER_LINKS.map((link) => (
-                <li key={link.path}>
-                  <button onClick={() => navigate(link.path)} className={linkClass}>
-                    {link.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Solutions Quick Links */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">Soluções</h4>
-            <ul className="space-y-2.5 text-sm">
-              {SOLUTION_LINKS.map((link) => (
-                <li key={link.label}>
-                  <button onClick={() => navigate(link.path)} className={linkClass}>
-                    {link.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact Summary */}
-          <div className="col-span-2 lg:col-span-3 space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">Contactos</h4>
-            <ul className="space-y-2.5 text-sm">
-              <li>
-                <a
-                  href={`https://wa.me/${COMPANY_INFO.whatsappNumber.replace(/[^0-9]/g, '')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`flex items-center gap-2.5 ${linkClass}`}
-                >
-                  <Phone className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>{COMPANY_INFO.whatsappFormatted}</span>
-                </a>
-              </li>
-              <li>
-                <a href={`mailto:${COMPANY_INFO.email}`} className={`flex items-center gap-2.5 ${linkClass}`}>
-                  <Mail className="w-4 h-4 text-blue-600 shrink-0" />
-                  <span>{COMPANY_INFO.email}</span>
-                </a>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 shrink-0 mt-0.5" />
-                <span>{COMPANY_INFO.address}</span>
-              </li>
-            </ul>
-          </div>
-
+          {/* Contactos */}
+          <ul className="space-y-2.5 text-sm">
+            <li>
+              <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" className={`inline-flex items-center gap-2.5 ${linkClass}`}>
+                <Phone className="w-4 h-4 text-emerald-600 shrink-0" aria-hidden="true" />
+                <span>WhatsApp {COMPANY_INFO.whatsappFormatted}</span>
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${COMPANY_INFO.email}`} className={`inline-flex items-center gap-2.5 ${linkClass}`}>
+                <Mail className="w-4 h-4 text-blue-600 shrink-0" aria-hidden="true" />
+                <span>{COMPANY_INFO.email}</span>
+              </a>
+            </li>
+            <li className="inline-flex items-center gap-2.5">
+              <MapPin className="w-4 h-4 shrink-0" aria-hidden="true" />
+              <span>{COMPANY_INFO.address}</span>
+            </li>
+          </ul>
         </div>
 
-        {/* Bottom Copyright Bar */}
-        <div className="pt-6 flex flex-col-reverse sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
-          <p>© {new Date().getFullYear()} Learn Code Moçambique. Todos os direitos reservados.</p>
-
-          <div className="flex items-center gap-4">
-            <span className="text-[11px]">Orgulhosamente desenvolvido em Maputo 🇲🇿</span>
+        {/* Navegação + copyright */}
+        <div className="pt-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <nav aria-label="Rodapé">
+            <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+              {FOOTER_LINKS.map((link) => (
+                <li key={link.path}>
+                  <Link to={link.path} className={`${linkClass} inline-block py-1`}>{link.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <div className="flex items-center justify-between gap-4 pr-16 sm:pr-0 text-xs text-slate-500 dark:text-slate-400">
+            <p>© {new Date().getFullYear()} Learn Code · Maputo, Moçambique</p>
             <button
+              type="button"
               onClick={scrollToTop}
-              className="p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer shadow-sm"
-              title="Voltar ao Topo"
+              className="w-10 h-10 shrink-0 inline-flex items-center justify-center rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+              aria-label="Voltar ao topo"
+              title="Voltar ao topo"
             >
-              <ArrowUp className="w-4 h-4" />
+              <ArrowUp className="w-4 h-4" aria-hidden="true" />
             </button>
           </div>
         </div>
-
       </div>
     </footer>
   );
