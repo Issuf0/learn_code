@@ -1,113 +1,81 @@
 import React from 'react';
-import { Target, Compass, HeartHandshake, Shield, Award, CheckCircle2, Building2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Target, Compass, Building2, ArrowRight } from 'lucide-react';
 import { COMPANY_INFO } from '../data/mockData';
+import { SectionHeader, Accent } from './ui/SectionHeader';
+import { btnPrimary, btnSecondary, card, container, section } from '../lib/ui';
 
-export const AboutSection: React.FC = () => {
-  return (
-    <section id="sobre" className="py-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+export const AboutSection: React.FC = () => (
+  <section id="sobre" className={`${section} bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white`}>
+    <div className={container}>
+      <SectionHeader
+        as="h1"
+        icon={<Building2 className="w-3.5 h-3.5" aria-hidden="true" />}
+        eyebrowText="Sobre a Learn Code"
+        title={<>Uma startup moçambicana comprometida com a <Accent>excelência digital.</Accent></>}
+        lead={COMPANY_INFO.aboutBrief}
+      />
 
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-wider">
-            <Building2 className="w-3.5 h-3.5" />
-            <span>Sobre a Learn Code</span>
-          </div>
-
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Uma startup moçambicana comprometida com a{' '}
-            <span className="text-blue-600 dark:text-blue-400">
-              excelência digital.
-            </span>
-          </h2>
-
-          <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed">
-            {COMPANY_INFO.aboutBrief}
-          </p>
-        </div>
-
-        {/* Mission & Vision Cards */}
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Mission Card */}
-          <div className="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-blue-500/50 transition-all group relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-2 h-full bg-blue-600" />
+      {/* Missão e visão */}
+      <div className="mt-10 sm:mt-14 grid grid-cols-1 md:grid-cols-2 gap-6">
+        {[
+          { icon: Target, title: 'Missão', quote: COMPANY_INFO.mission, text: 'Resolver desafios práticos com software robusto, inteligência artificial e formação técnica contínua.' },
+          { icon: Compass, title: 'Visão', quote: COMPANY_INFO.vision, text: 'Construir um ecossistema tecnológico que represente o talento moçambicano, em Moçambique e além-fronteiras.' },
+        ].map(({ icon: Icon, title, quote, text }) => (
+          <div key={title} className={`${card} p-7 relative overflow-hidden`}>
+            <div className="absolute top-0 left-0 w-1.5 h-full bg-blue-500" aria-hidden="true" />
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0 group-hover:scale-105 transition-transform">
-                <Target className="w-6 h-6" />
+              <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 flex items-center justify-center text-blue-700 dark:text-blue-300 shrink-0">
+                <Icon className="w-6 h-6" aria-hidden="true" />
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white">Nossa Missão</h3>
-                <p className="text-slate-800 dark:text-slate-100 leading-relaxed font-semibold text-lg">
-                  "{COMPANY_INFO.mission}"
-                </p>
-                <p className="text-slate-500 dark:text-slate-400 text-sm">
-                  Focamos na resolução de desafios práticos através de software robusto, inteligência artificial e formação técnica contínua.
-                </p>
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white">{title}</h2>
+                <p className="text-slate-800 dark:text-slate-100 leading-relaxed font-semibold text-lg">{quote}</p>
+                <p className="text-slate-600 dark:text-slate-400 text-sm">{text}</p>
               </div>
             </div>
           </div>
-
-          {/* Vision Card */}
-          <div className="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-blue-500/50 transition-all group relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-2 h-full bg-sky-500" />
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0 group-hover:scale-105 transition-transform">
-                <Compass className="w-6 h-6" />
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white">Nossa Visão</h3>
-                <p className="text-slate-800 dark:text-slate-100 leading-relaxed font-semibold text-lg">
-                  "{COMPANY_INFO.vision}"
-                </p>
-                <p className="text-slate-500 dark:text-slate-400 text-sm">
-                  Construir um ecossistema tecnológico sustentável que represente o talento moçambicano no cenário global.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Values Grid */}
-        <div className="mt-14 space-y-6">
-          <div className="text-center">
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Nossos Valores Fundamentais</h3>
-            <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Os princípios que orientam as nossas decisões, entregas e relações interpessoais.</p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {COMPANY_INFO.values.map((val, idx) => (
-              <div
-                key={idx}
-                className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-blue-300 transition-all space-y-3"
-              >
-                <div className="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold text-sm">
-                  0{idx + 1}
-                </div>
-                <h4 className="text-lg font-bold text-slate-900 dark:text-white">{val.title}</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{val.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Highlight Slogan Card */}
-        <div className="mt-14 p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm text-center relative overflow-hidden">
-          <div className="absolute -right-24 -top-24 w-80 h-80 bg-[#29b6e8] rounded-full opacity-[0.06] blur-3xl pointer-events-none" />
-          <div className="max-w-3xl mx-auto space-y-4 relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 text-blue-600 dark:text-blue-400 text-xs font-semibold">
-              <Award className="w-3.5 h-3.5 text-amber-500" />
-              <span>Identidade de Marca Learn Code</span>
-            </div>
-            <blockquote className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-snug">
-              "{COMPANY_INFO.slogan}"
-            </blockquote>
-            <p className="text-slate-600 dark:text-slate-400 text-sm max-w-xl mx-auto">
-              Cada linha de código que escrevemos reflete a nossa seriedade, transparência e empenho no sucesso dos nossos parceiros e clientes.
-            </p>
-          </div>
-        </div>
-
+        ))}
       </div>
-    </section>
-  );
-};
+
+      {/* Valores */}
+      <div className="mt-10 sm:mt-14 space-y-6">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Os nossos valores</h2>
+          <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">Os princípios que orientam as nossas decisões, entregas e relações.</p>
+        </div>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {COMPANY_INFO.values.map((val, idx) => (
+            <li key={val.title} className={`${card} p-5 space-y-3`}>
+              <div className="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 flex items-center justify-center text-blue-700 dark:text-blue-300 font-bold text-sm" aria-hidden="true">
+                0{idx + 1}
+              </div>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white">{val.title}</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{val.description}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Lema + CTA */}
+      <div className={`${card} mt-10 sm:mt-14 p-7 sm:p-10 text-center relative overflow-hidden rounded-3xl`}>
+        <div className="absolute -right-24 -top-24 w-80 h-80 bg-blue-400 rounded-full opacity-[0.06] blur-3xl pointer-events-none" aria-hidden="true" />
+        <div className="max-w-3xl mx-auto space-y-5 relative z-10">
+          <blockquote className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-snug text-balance">
+            “{COMPANY_INFO.slogan}”
+          </blockquote>
+          <p className="text-slate-600 dark:text-slate-400 text-sm max-w-xl mx-auto">
+            Cada linha de código que escrevemos reflecte a nossa seriedade, transparência e empenho no sucesso de quem confia em nós.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-3 pt-1">
+            <Link to="/contacto?tipo=projecto" className={btnPrimary}>
+              <span>Vamos falar do seu projecto</span>
+              <ArrowRight className="w-4 h-4" aria-hidden="true" />
+            </Link>
+            <Link to="/projectos" className={btnSecondary}>Ver os nossos projectos</Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+);

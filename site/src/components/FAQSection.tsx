@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { ChevronDown, HelpCircle, MessageSquare } from 'lucide-react';
-import { COMPANY_INFO } from '../data/mockData';
+import { whatsappHref } from '../config/site';
+import { SectionHeader, Accent } from './ui/SectionHeader';
+import { btnWhatsApp, section } from '../lib/ui';
 
 interface FAQItem {
   question: string;
@@ -11,87 +13,81 @@ const FAQ_ITEMS: FAQItem[] = [
   {
     question: 'Quanto custa um website ou sistema?',
     answer:
-      'Cada projecto é único, por isso preparamos sempre um orçamento à medida, com base nas funcionalidades, na complexidade e nos prazos pretendidos. Fazemos um diagnóstico gratuito em 24h e apresentamos uma proposta detalhada por escrito, sem qualquer compromisso, antes de começarmos.',
+      'Cada projecto é único, por isso o valor depende das funcionalidades, da complexidade e dos prazos pretendidos. Conte-nos o que pretende construir e apresentamos uma proposta por escrito, sem compromisso, antes de começarmos.',
   },
   {
     question: 'Quanto tempo demora um projecto?',
     answer:
-      'Websites institucionais ficam prontos em 2 a 4 semanas. Sistemas e aplicações personalizadas levam tipicamente de 4 a 12 semanas, conforme a complexidade. O prazo é definido no contrato e mantemos-lhe sempre informado sobre o progresso.',
+      'Websites institucionais ficam normalmente prontos em 2 a 4 semanas. Sistemas e aplicações à medida levam tipicamente de 4 a 12 semanas, conforme a complexidade. O prazo é definido no contrato e mantemos-lhe informado sobre o progresso.',
   },
   {
     question: 'Como funciona o pagamento?',
     answer:
-      'Trabalhamos com um modelo simples e seguro: sinal de 30% a 50% do valor total antes de começarmos o desenvolvimento, e o restante na entrega. Aceitamos M-Pesa, e-Mola e transferência bancária, sempre com factura e recibo emitidos.',
+      'Trabalhamos com um modelo simples: sinal de 30% a 50% do valor total antes de começarmos e o restante na entrega. Aceitamos M-Pesa, e-Mola e transferência bancária, sempre com factura e recibo.',
   },
   {
-    question: 'Como acompanho o meu projecto depois de fechar?',
+    question: 'Como acompanho o meu projecto?',
     answer:
-      'Mantemos um acompanhamento próximo e transparente: recebe actualizações regulares sobre o progresso, milestones e documentos do projecto, com contacto directo com a equipa pelo WhatsApp e por email.',
+      'Recebe actualizações regulares sobre o progresso e as etapas do projecto, com contacto directo com a equipa pelo WhatsApp e por email.',
   },
   {
     question: 'E se eu precisar de alterações depois da entrega?',
     answer:
-      'Todos os projectos incluem um período de garantia para correcções sem custo. Depois disso, oferecemos planos de manutenção e suporte contínuo para manter a sua solução actualizada e segura.',
+      'Todos os projectos incluem um período de garantia para correcções sem custo. Depois disso, oferecemos planos de manutenção e suporte para manter a sua solução actualizada e segura.',
+  },
+  {
+    question: 'Como me inscrevo num curso?',
+    answer:
+      'Escolha o curso na página de cursos, onde o preço e a duração estão indicados, e use o botão de inscrição. Recebemos o seu pedido pelo WhatsApp e confirmamos consigo a próxima turma e o horário.',
   },
 ];
 
 export const FAQSection: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-
-  const whatsappUrl = `https://wa.me/${COMPANY_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-    'Olá Learn Code! Tenho uma dúvida que não encontrei nas FAQ do site.'
-  )}`;
+  const whatsappUrl = whatsappHref('Olá Learn Code! Tenho uma dúvida que não encontrei nas perguntas frequentes do site.');
 
   return (
-    <section id="faq" className="py-20 bg-white dark:bg-slate-950 text-slate-900 dark:text-white relative border-t border-slate-200 dark:border-slate-800">
+    <section id="faq" className={`${section} bg-white dark:bg-slate-950 text-slate-900 dark:text-white border-t border-slate-200 dark:border-slate-800`}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          icon={<HelpCircle className="w-3.5 h-3.5" aria-hidden="true" />}
+          eyebrowText="Perguntas frequentes"
+          title={<>Tudo o que precisa de saber <Accent>antes de começar.</Accent></>}
+          lead="Respostas directas às dúvidas mais comuns sobre preços, prazos e como trabalhamos."
+        />
 
-        {/* Header */}
-        <div className="text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-wider">
-            <HelpCircle className="w-3.5 h-3.5" />
-            <span>Perguntas Frequentes</span>
-          </div>
-
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Tudo o que precisa de saber{' '}
-            <span className="text-blue-600 dark:text-blue-400">antes de começar.</span>
-          </h2>
-
-          <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-            Respostas directas às dúvidas mais comuns sobre preços, prazos e como trabalhamos.
-          </p>
-        </div>
-
-        {/* Accordion */}
-        <div className="mt-12 space-y-3">
+        <div className="mt-10 space-y-3">
           {FAQ_ITEMS.map((item, index) => {
             const isOpen = openIndex === index;
+            const panelId = `faq-panel-${index}`;
+            const buttonId = `faq-button-${index}`;
             return (
               <div
-                key={index}
-                className={`rounded-2xl border transition-all ${
+                key={item.question}
+                className={`rounded-2xl border transition-colors ${
                   isOpen
                     ? 'bg-slate-50 dark:bg-slate-800/50 border-blue-200 dark:border-blue-900 shadow-sm'
                     : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
                 }`}
               >
-                <button
-                  onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full flex items-center justify-between gap-4 px-5 sm:px-6 py-4 sm:py-5 text-left cursor-pointer"
-                >
-                  <span className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
-                    {item.question}
-                  </span>
-                  <ChevronDown
-                    className={`w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 transition-transform duration-200 ${
-                      isOpen ? 'rotate-180' : ''
-                    }`}
-                  />
-                </button>
-
+                <h3>
+                  <button
+                    type="button"
+                    id={buttonId}
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    className="w-full flex items-center justify-between gap-4 px-5 sm:px-6 py-4 sm:py-5 text-left cursor-pointer rounded-2xl"
+                  >
+                    <span className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">{item.question}</span>
+                    <ChevronDown
+                      className={`w-5 h-5 text-blue-700 dark:text-blue-300 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                      aria-hidden="true"
+                    />
+                  </button>
+                </h3>
                 {isOpen && (
-                  <div className="px-5 sm:px-6 pb-5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed animate-in fade-in duration-200">
+                  <div id={panelId} role="region" aria-labelledby={buttonId} className="px-5 sm:px-6 pb-5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed animate-lc-fade-in">
                     {item.answer}
                   </div>
                 )}
@@ -100,20 +96,13 @@ export const FAQSection: React.FC = () => {
           })}
         </div>
 
-        {/* Fallback CTA */}
         <div className="mt-10 text-center space-y-3">
-          <p className="text-sm text-slate-500 dark:text-slate-400">Não encontrou a resposta que procurava?</p>
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-bold text-sm text-white bg-emerald-600 hover:bg-emerald-500 shadow-md shadow-emerald-600/20 transition-all cursor-pointer"
-          >
-            <MessageSquare className="w-4 h-4" />
+          <p className="text-sm text-slate-600 dark:text-slate-400">Não encontrou a resposta que procurava?</p>
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className={btnWhatsApp}>
+            <MessageSquare className="w-4 h-4" aria-hidden="true" />
             <span>Perguntar no WhatsApp</span>
           </a>
         </div>
-
       </div>
     </section>
   );
