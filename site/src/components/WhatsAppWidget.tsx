@@ -1,74 +1,120 @@
-import React, { useState } from 'react';
-import { MessageSquare, X, Send } from 'lucide-react';
+import React, { useEffect, useId, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { MessageCircle, X, ExternalLink } from 'lucide-react';
 import { COMPANY_INFO } from '../data/mockData';
+import { whatsappHref } from '../config/site';
 
+const DEFAULT_MESSAGE = 'Olá Learn Code! Gostaria de saber mais sobre os vossos serviços.';
+
+/**
+ * Botão flutuante que abre uma conversa de WhatsApp com a Learn Code.
+ * Não é um assistente automático: a mensagem é enviada na aplicação do WhatsApp.
+ */
 export const WhatsAppWidget: React.FC = () => {
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
-  const [quickMsg, setQuickMsg] = useState('Olá! Gostaria de informações sobre os serviços da Learn Code.');
+  const [message, setMessage] = useState(DEFAULT_MESSAGE);
+  const panelId = useId();
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleSend = () => {
-    const url = `https://wa.me/${COMPANY_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(quickMsg)}`;
-    window.open(url, '_blank');
+  // Fecha ao mudar de página.
+  useEffect(() => {
     setIsOpen(false);
-  };
+  }, [location.pathname]);
+
+  // Foco no painel ao abrir; Escape fecha e devolve o foco ao botão.
+  useEffect(() => {
+    if (!isOpen) return;
+    textareaRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [isOpen]);
+
+  // A página de contacto já oferece o WhatsApp; evita-se sobrepor o formulário.
+  if (location.pathname.startsWith('/contacto')) return null;
+
+  const href = whatsappHref(message.trim() || DEFAULT_MESSAGE);
 
   return (
-    <div className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end">
-      {/* Quick Chat Popup */}
+    <div
+      className="fixed right-4 z-40 flex flex-col items-end gap-3"
+      style={{ bottom: 'max(1rem, env(safe-area-inset-bottom))' }}
+    >
       {isOpen && (
-        <div className="mb-4 w-[calc(100vw-2.5rem)] max-w-xs sm:max-w-sm sm:w-80 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-4 text-white animate-in slide-in-from-bottom duration-200">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500/50 flex items-center justify-center text-emerald-400">
-                <MessageSquare className="w-4 h-4" />
+        <div
+          id={panelId}
+          role="dialog"
+          aria-label="Falar com a Learn Code no WhatsApp"
+          className="w-[min(22rem,calc(100vw-2rem))] max-h-[calc(100dvh-7rem)] overflow-y-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-2xl text-slate-900 dark:text-white animate-lc-slide-up"
+        >
+          <div className="flex items-center justify-between gap-3 p-4 border-b border-slate-200 dark:border-slate-800">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-full bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-900 flex items-center justify-center text-emerald-700 dark:text-emerald-400">
+                <MessageCircle className="w-4 h-4" aria-hidden="true" />
               </div>
               <div>
-                <p className="text-xs font-bold">Atendimento Learn Code</p>
-                <p className="text-[10px] text-emerald-400">Online no WhatsApp</p>
+                <p className="text-sm font-bold">Falar no WhatsApp</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">{COMPANY_INFO.whatsappFormatted}</p>
               </div>
             </div>
-
             <button
-              onClick={() => setIsOpen(false)}
-              className="p-1 rounded text-slate-400 hover:text-white cursor-pointer"
+              type="button"
+              onClick={() => {
+                setIsOpen(false);
+                toggleRef.current?.focus();
+              }}
+              className="w-10 h-10 inline-flex items-center justify-center rounded-xl text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer"
+              aria-label="Fechar"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" aria-hidden="true" />
             </button>
           </div>
 
-          <div className="py-3 text-xs text-slate-300 space-y-2">
-            <p className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 leading-relaxed">
-              👋 Olá! Como podemos ajudar o seu negócio ou instituição hoje?
+          <div className="p-4 space-y-3">
+            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              Escreva a sua mensagem. Ao continuar, a conversa abre na aplicação do WhatsApp e é respondida pela equipa da Learn Code.
             </p>
-
+            <label htmlFor={`${panelId}-msg`} className="sr-only">Mensagem para a Learn Code</label>
             <textarea
-              rows={2}
-              aria-label="Mensagem para o WhatsApp"
-              value={quickMsg}
-              onChange={(e) => setQuickMsg(e.target.value)}
-              className="w-full p-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-100 focus:outline-none focus:border-emerald-500 resize-none"
+              id={`${panelId}-msg`}
+              ref={textareaRef}
+              rows={3}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-base sm:text-sm text-slate-900 dark:text-slate-100 focus:border-emerald-500 resize-none"
             />
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setIsOpen(false)}
+              className="w-full min-h-11 py-2.5 px-4 rounded-xl font-bold text-sm text-white bg-emerald-700 hover:bg-emerald-800 inline-flex items-center justify-center gap-2 transition-colors"
+            >
+              <span>Abrir no WhatsApp</span>
+              <ExternalLink className="w-4 h-4" aria-hidden="true" />
+            </a>
           </div>
-
-          <button
-            onClick={handleSend}
-            className="w-full py-2.5 px-4 rounded-xl font-bold text-xs text-white bg-emerald-600 hover:bg-emerald-500 flex items-center justify-center gap-2 shadow-md shadow-emerald-600/30 cursor-pointer"
-          >
-            <span>Iniciar Conversa</span>
-            <Send className="w-3.5 h-3.5" />
-          </button>
         </div>
       )}
 
-      {/* Floating Toggle Button */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="relative group p-4 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold shadow-xl shadow-emerald-500/30 transition-all hover:scale-105 active:scale-95 cursor-pointer flex items-center justify-center"
-        title="Falar no WhatsApp"
-        aria-label="Atendimento WhatsApp"
+        ref={toggleRef}
+        type="button"
+        onClick={() => setIsOpen((open) => !open)}
+        className="w-14 h-14 rounded-full bg-emerald-700 hover:bg-emerald-800 text-white shadow-xl shadow-emerald-700/30 transition-colors cursor-pointer inline-flex items-center justify-center"
+        aria-label={isOpen ? 'Fechar conversa de WhatsApp' : 'Falar com a Learn Code no WhatsApp'}
+        aria-expanded={isOpen}
+        aria-controls={panelId}
+        aria-haspopup="dialog"
       >
-        <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-slate-950 animate-ping"></span>
-        <MessageSquare className="w-6 h-6 fill-current" />
+        {isOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <MessageCircle className="w-7 h-7" aria-hidden="true" />}
       </button>
     </div>
   );
