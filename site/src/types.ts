@@ -63,8 +63,6 @@ export interface CourseItem {
   prerequisites: string;
   summary: string;
   topics: string[];
-  /** Preço do curso em meticais (sem taxa de inscrição). */
-  price: number;
 }
 
 // Tema da plataforma: manual (light/dark) ou automático (segue o sistema operativo)

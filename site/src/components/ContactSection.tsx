@@ -5,7 +5,6 @@ import {
 } from 'lucide-react';
 import { COMPANY_INFO, COURSES, SERVICES } from '../data/mockData';
 import { whatsappHref, mailtoHref } from '../config/site';
-import { formatMZN } from '../lib/format';
 import { SectionHeader, Accent } from './ui/SectionHeader';
 import { btnPrimary, btnSecondary, btnWhatsApp, card, container, inputClass, labelClass, section } from '../lib/ui';
 
@@ -94,7 +93,7 @@ const TRACKS: TrackDef[] = [
         type: 'select',
         required: true,
         half: true,
-        options: COURSES.map((c) => ({ value: c.title, label: `${c.title} · ${c.duration} · ${formatMZN(c.price)}` })),
+        options: COURSES.map((c) => ({ value: c.title, label: `${c.title} · ${c.duration}` })),
       },
       {
         name: 'schedule',

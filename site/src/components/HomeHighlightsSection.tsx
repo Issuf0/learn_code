@@ -4,7 +4,6 @@ import { Layers, Briefcase, ArrowRight, GraduationCap } from 'lucide-react';
 import { SERVICES, PROJECTS, COURSES } from '../data/mockData';
 import { NamedIcon } from '../lib/icons';
 import { STATUS_STYLE } from '../lib/status';
-import { formatMZN } from '../lib/format';
 import { SectionHeader, Accent } from './ui/SectionHeader';
 import { btnPrimary, btnSecondary, cardHover, container, section } from '../lib/ui';
 
@@ -14,7 +13,6 @@ const FEATURED_PROJECT_IDS = ['roadmz', 'quiz-code', 'sispoupa'];
 export const HomeHighlightsSection: React.FC = () => {
   const featuredServices = SERVICES.filter((s) => FEATURED_SERVICE_IDS.includes(s.id));
   const featuredProjects = FEATURED_PROJECT_IDS.map((id) => PROJECTS.find((p) => p.id === id)).filter(Boolean) as typeof PROJECTS;
-  const cheapest = Math.min(...COURSES.map((c) => c.price));
 
   return (
     <>
@@ -105,7 +103,7 @@ export const HomeHighlightsSection: React.FC = () => {
             icon={<GraduationCap className="w-3.5 h-3.5" aria-hidden="true" />}
             eyebrowText="Formação"
             title={<>Cursos práticos de programação <Accent>em Maputo.</Accent></>}
-            lead={`Seis cursos, do HTML ao Python Avançado, com preço e duração claros. A partir de ${formatMZN(cheapest)}.`}
+            lead={`${COURSES.length} cursos, do HTML ao Python Avançado, com duração clara e turmas em Maputo.`}
           />
           <div className="flex flex-col sm:flex-row lg:justify-end gap-3">
             <Link to="/cursos" className={btnPrimary}>

@@ -89,7 +89,7 @@ export const SERVICES: ServiceItem[] = [
     fullDesc:
       'Formamos jovens, estudantes e profissionais com metodologia prática, orientada a projectos, do básico ao avançado.',
     iconName: 'GraduationCap',
-    benefits: ['Projectos práticos', 'Turmas pequenas', 'Do básico ao avançado', 'Preços e durações claros'],
+    benefits: ['Projectos práticos', 'Turmas pequenas', 'Do básico ao avançado', 'Duração clara por curso'],
     category: 'education',
   },
 ];
@@ -234,7 +234,6 @@ export const COURSES: CourseItem[] = [
     prerequisites: 'Sem requisitos prévios.',
     summary: 'Aprenda a estruturar e estilizar páginas web do zero com as tecnologias fundamentais da web.',
     topics: ['Estrutura HTML5 semântica', 'CSS3, Flexbox e Grid', 'Design responsivo para telemóveis', 'Publicação do primeiro site online'],
-    price: 3950,
   },
   {
     id: 'javascript',
@@ -244,7 +243,6 @@ export const COURSES: CourseItem[] = [
     prerequisites: 'Conhecimentos básicos de HTML e CSS.',
     summary: 'Adicione interactividade e dinamismo aos seus sites com a linguagem mais usada na web.',
     topics: ['Sintaxe moderna (ES6+)', 'Manipulação do DOM', 'Eventos e assincronismo (Promises, Fetch API)', 'Pequenas aplicações web interactivas'],
-    price: 4100,
   },
   {
     id: 'mysql',
@@ -254,7 +252,6 @@ export const COURSES: CourseItem[] = [
     prerequisites: 'Lógica de programação básica.',
     summary: 'Desenhe, consulte e gira bases de dados relacionais para aplicações reais.',
     topics: ['Modelação de dados (DER)', 'Consultas SQL (joins, agregações)', 'Chaves primárias e estrangeiras', 'Integração com linguagens de programação'],
-    price: 4500,
   },
   {
     id: 'python',
@@ -264,7 +261,6 @@ export const COURSES: CourseItem[] = [
     prerequisites: 'Sem requisitos prévios.',
     summary: 'Fundamentos de programação e lógica com Python, a base para automação, dados e inteligência artificial.',
     topics: ['Variáveis, tipos de dados e operadores', 'Estruturas de decisão e repetição', 'Funções e módulos', 'Manipulação de ficheiros e scripts úteis'],
-    price: 4700,
   },
   {
     id: 'python-advanced',
@@ -274,7 +270,6 @@ export const COURSES: CourseItem[] = [
     prerequisites: 'Domínio dos fundamentos de Python.',
     summary: 'Conteúdos avançados de Python, incluindo Programação Orientada a Objectos e construção de APIs.',
     topics: ['Programação Orientada a Objectos (POO)', 'Tratamento de erros e excepções', 'Criação de APIs REST com FastAPI', 'Testes automatizados e publicação'],
-    price: 4900,
   },
   {
     id: 'java-basic',
@@ -284,6 +279,5 @@ export const COURSES: CourseItem[] = [
     prerequisites: 'Lógica de programação básica (recomendado).',
     summary: 'Fundamentos de programação com Java, uma das linguagens mais usadas em sistemas empresariais.',
     topics: ['Sintaxe, variáveis e tipos de dados', 'Estruturas de decisão e ciclos', 'Métodos e arrays', 'Primeiros programas de consola'],
-    price: 4600,
   },
 ];

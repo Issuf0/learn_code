@@ -38,7 +38,7 @@ const FAQ_ITEMS: FAQItem[] = [
   {
     question: 'Como me inscrevo num curso?',
     answer:
-      'Escolha o curso na página de cursos, onde o preço e a duração estão indicados, e use o botão de inscrição. Recebemos o seu pedido pelo WhatsApp e confirmamos consigo a próxima turma e o horário.',
+      'Escolha o curso na página de cursos e use o botão de inscrição. Recebemos o seu pedido pelo WhatsApp e confirmamos consigo a próxima turma, o horário e as condições.',
   },
 ];
 

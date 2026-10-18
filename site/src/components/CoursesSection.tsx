@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { GraduationCap, Clock, CheckCircle2, ArrowRight, BarChart3, MessageSquare } from 'lucide-react';
 import { COURSES } from '../data/mockData';
 import { CourseItem } from '../types';
-import { formatMZN } from '../lib/format';
 import { SectionHeader, Accent } from './ui/SectionHeader';
 import { btnPrimary, btnSecondary, cardHover, container, section } from '../lib/ui';
 
@@ -21,7 +20,7 @@ export const CoursesSection: React.FC = () => {
           icon={<GraduationCap className="w-3.5 h-3.5" aria-hidden="true" />}
           eyebrowText="Formação em programação"
           title={<>Cursos de programação para impulsionar a sua <Accent>carreira tecnológica.</Accent></>}
-          lead="Formação prática, orientada por projectos, com preços e durações claros. Sem surpresas."
+          lead="Formação prática, orientada por projectos, com duração clara para cada curso."
         />
 
         {/* Filtro por nível */}
@@ -83,11 +82,7 @@ export const CoursesSection: React.FC = () => {
                 </div>
               </div>
 
-              <div className="pt-5 mt-5 border-t border-slate-100 dark:border-slate-800 space-y-3">
-                <p className="flex items-baseline justify-between gap-2">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Preço do curso</span>
-                  <span className="text-xl font-extrabold text-slate-900 dark:text-white">{formatMZN(course.price)}</span>
-                </p>
+              <div className="pt-5 mt-5 border-t border-slate-100 dark:border-slate-800">
                 <Link to={`/contacto?tipo=curso&curso=${course.id}`} className={`${btnPrimary} w-full`}>
                   <span>Inscrever-me neste curso</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
