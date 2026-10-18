@@ -60,7 +60,13 @@ export const ROUTES: Record<string, { path: string; title: string; description: 
     path: '/cursos',
     title: 'Cursos de Programação · Learn Code',
     description:
-      'Cursos práticos de programação em Maputo: HTML5 e CSS3, JavaScript, MySQL, Python, Python Avançado e Java Básico. Preços e durações claros em cada curso.',
+      'Cursos práticos de programação em Maputo: HTML5 e CSS3, JavaScript, MySQL, Python, Python Avançado e Java Básico, com duração clara em cada curso.',
+  },
+  parcerias: {
+    path: '/parcerias',
+    title: 'Parcerias · Learn Code',
+    description:
+      'Parcerias da Learn Code: a YELA Corporation, sociedade de arquitectura, creative studio e construções em Maputo, é parceira estratégica para levar soluções digitais a organizações em Moçambique.',
   },
   contacto: {
     path: '/contacto',

@@ -11,6 +11,7 @@ const FOOTER_LINKS = [
   { path: '/servicos', label: 'Serviços' },
   { path: '/projectos', label: 'Projectos' },
   { path: '/cursos', label: 'Cursos' },
+  { path: '/parcerias', label: 'Parcerias' },
   { path: '/contacto', label: 'Contacto' },
 ];
 

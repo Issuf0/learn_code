@@ -7,6 +7,7 @@ import { AboutSection } from './components/AboutSection';
 import { ServicesSection } from './components/ServicesSection';
 import { ProjectsSection } from './components/ProjectsSection';
 import { CoursesSection } from './components/CoursesSection';
+import { PartnersSection } from './components/PartnersSection';
 import { FAQSection } from './components/FAQSection';
 import { ContactSection } from './components/ContactSection';
 import { HomeHighlightsSection } from './components/HomeHighlightsSection';
@@ -127,6 +128,7 @@ export default function App() {
           {page === 'servicos' && <div className={PAGE_TOP}><ServicesSection /></div>}
           {page === 'projectos' && <div className={PAGE_TOP}><ProjectsSection /></div>}
           {page === 'cursos' && <div className={PAGE_TOP}><CoursesSection /></div>}
+          {page === 'parcerias' && <div className={PAGE_TOP}><PartnersSection /></div>}
           {page === 'contacto' && <div className={PAGE_TOP}><ContactSection /></div>}
         </main>
 

@@ -1,4 +1,4 @@
-import { ServiceItem, ProjectItem, CourseItem } from '../types';
+import { ServiceItem, ProjectItem, CourseItem, PartnerItem } from '../types';
 import { CONTACT } from '../config/site';
 
 export const COMPANY_INFO = {
@@ -200,6 +200,28 @@ export const PROJECTS: ProjectItem[] = [
     features: ['Pesquisa em linguagem natural', 'Citação do artigo exacto', 'Resumos simplificados', 'API REST para integração'],
     techStack: ['Python', 'FastAPI', 'Gemini API', 'RAG'],
     targetAudience: 'Advogados, estudantes de direito, empresas, ONGs e cidadãos.',
+  },
+];
+
+export const PARTNERS: PartnerItem[] = [
+  {
+    id: 'yela-corporation',
+    name: 'YELA Corporation',
+    role: 'Parceiro estratégico',
+    since: 'Setembro de 2026',
+    location: 'Maputo, Moçambique',
+    summary:
+      'A YELA Corporation, SA é uma sociedade moçambicana de arquitectura, creative studio e construções. Através da parceria com a Learn Code, leva soluções digitais às organizações que acompanha: websites, aplicações, sistemas e inteligência artificial.',
+    howItWorks: [
+      'A YELA identifica a oportunidade junto das organizações que acompanha.',
+      'A Learn Code analisa o desafio, orça e executa a solução tecnológica.',
+      'A YELA acompanha a relação com o cliente ao longo do projecto.',
+    ],
+    areas: ['Arquitectura', 'Creative Studio', 'Construções'],
+    link: 'https://yela-corporation.vercel.app/',
+    linkLabel: 'Visitar a YELA Corporation',
+    projectRef: 'yela-corporation',
+    iconName: 'Building2',
   },
 ];
 

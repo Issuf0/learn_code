@@ -24,6 +24,7 @@ const NAV_LINKS = [
   { path: '/servicos', label: 'Serviços' },
   { path: '/projectos', label: 'Projectos' },
   { path: '/cursos', label: 'Cursos' },
+  { path: '/parcerias', label: 'Parcerias' },
   { path: '/contacto', label: 'Contacto' },
 ];
 
@@ -80,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({ themeMode, onChangeTheme }) => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3">
           {/* Logótipo */}
-          <Link to="/" className="flex items-center gap-2.5 text-left group rounded-lg" aria-label="Learn Code — página inicial">
+          <Link to="/" className="flex items-center gap-2.5 text-left group rounded-lg shrink-0" aria-label="Learn Code — página inicial">
             <img src={logoIcon} alt="" width={54} height={36} className="h-9 w-auto" />
             <span className="flex items-center gap-1.5">
               <span className="font-extrabold text-xl tracking-tight text-blue-500 whitespace-nowrap">
@@ -93,14 +94,14 @@ export const Navbar: React.FC<NavbarProps> = ({ themeMode, onChangeTheme }) => {
           </Link>
 
           {/* Ligações (desktop) */}
-          <ul className="hidden lg:flex items-center gap-1">
+          <ul className="hidden lg:flex items-center gap-0.5">
             {NAV_LINKS.map((link) => (
               <li key={link.path}>
                 <NavLink
                   to={link.path}
                   end={link.path === '/'}
                   className={({ isActive }) =>
-                    `px-3.5 py-2 rounded-lg text-sm transition-colors inline-block ${
+                    `px-3 py-2 rounded-lg text-sm transition-colors inline-block whitespace-nowrap ${
                       isActive
                         ? 'text-blue-700 dark:text-blue-300 font-semibold bg-blue-50 dark:bg-blue-950/40'
                         : 'text-slate-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-slate-100 dark:hover:bg-slate-800'
@@ -124,7 +125,7 @@ export const Navbar: React.FC<NavbarProps> = ({ themeMode, onChangeTheme }) => {
             </button>
             <Link
               to="/contacto?tipo=projecto"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-white bg-blue-700 hover:bg-blue-800 transition-colors"
+              className="hidden xl:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-white bg-blue-700 hover:bg-blue-800 transition-colors whitespace-nowrap"
             >
               Vamos falar do seu projecto
             </Link>

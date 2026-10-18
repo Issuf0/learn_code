@@ -37,6 +37,24 @@ export interface ProjectItem {
   iconName: 'Car' | 'BookOpen' | 'PiggyBank' | 'Leaf' | 'Scale' | 'Building2';
 }
 
+export interface PartnerItem {
+  id: string;
+  name: string;
+  /** Natureza da relação, ex.: "Parceiro estratégico". */
+  role: string;
+  since: string;
+  location: string;
+  summary: string;
+  /** Como funciona a colaboração, por passos. */
+  howItWorks: string[];
+  areas: string[];
+  link?: string;
+  linkLabel?: string;
+  /** Projecto relacionado em PROJECTS (ex.: o website desenvolvido). */
+  projectRef?: string;
+  iconName: 'Building2';
+}
+
 export interface CourseItem {
   id: string;
   title: string;
