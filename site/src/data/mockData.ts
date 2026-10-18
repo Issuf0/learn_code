@@ -151,6 +151,25 @@ export const PROJECTS: ProjectItem[] = [
     linkLabel: 'Visitar plataforma',
   },
   {
+    id: 'yela-corporation',
+    name: 'YELA Corporation',
+    kind: 'Projecto para cliente',
+    category: 'Website institucional',
+    status: 'Em produção',
+    iconName: 'Building2',
+    summary:
+      'Website institucional da YELA Corporation, SA, sociedade de arquitectura, creative studio e construções sediada em Maputo e parceira estratégica da Learn Code.',
+    problem:
+      'A YELA precisava de uma presença digital que apresentasse as suas três áreas de actuação e a parceria com a Learn Code a organizações em todo o Moçambique, com um canal de contacto directo.',
+    solution:
+      'Website institucional com páginas sobre a empresa, áreas de actuação, parceria estratégica e contacto, com identidade visual sóbria, navegação clara e chamadas à acção para WhatsApp e email.',
+    features: ['Áreas de actuação: Arquitectura, Creative Studio e Construções', 'Página da parceria YELA Corporation × Learn Code', 'Contacto directo por WhatsApp e email', 'Metadados para partilha em redes sociais'],
+    techStack: ['React', 'Vite', 'Tailwind CSS', 'Vercel'],
+    targetAudience: 'Organizações, empresas e instituições em Moçambique com desafios em arquitectura, comunicação, obra ou tecnologia.',
+    link: 'https://yela-corporation.vercel.app/',
+    linkLabel: 'Visitar website',
+  },
+  {
     id: 'ecomaputo',
     name: 'EcoMaputo',
     kind: 'Produto Learn Code',

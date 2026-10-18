@@ -34,7 +34,7 @@ export interface ProjectItem {
   linkLabel?: string;
   /** Captura de ecrã real (caminho em /public). Ainda não existem para nenhum projecto. */
   image?: string;
-  iconName: 'Car' | 'BookOpen' | 'PiggyBank' | 'Leaf' | 'Scale';
+  iconName: 'Car' | 'BookOpen' | 'PiggyBank' | 'Leaf' | 'Scale' | 'Building2';
 }
 
 export interface CourseItem {

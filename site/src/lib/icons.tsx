@@ -1,5 +1,5 @@
 import React from 'react';
-import { Globe, Smartphone, Monitor, Plug, Bot, Palette, GraduationCap, Layers, Car, BookOpen, PiggyBank, Leaf, Scale } from 'lucide-react';
+import { Globe, Smartphone, Monitor, Plug, Bot, Palette, GraduationCap, Layers, Car, BookOpen, PiggyBank, Leaf, Scale, Building2 } from 'lucide-react';
 
 const ICONS: Record<string, React.ComponentType<{ className?: string; 'aria-hidden'?: boolean | 'true' }>> = {
   Globe,
@@ -14,6 +14,7 @@ const ICONS: Record<string, React.ComponentType<{ className?: string; 'aria-hidd
   PiggyBank,
   Leaf,
   Scale,
+  Building2,
 };
 
 /** Devolve o ícone lucide pelo nome guardado nos dados; Layers como alternativa. */

@@ -54,7 +54,7 @@ export const ROUTES: Record<string, { path: string; title: string; description: 
     path: '/projectos',
     title: 'Projectos · Learn Code',
     description:
-      'Projectos e produtos da Learn Code: Road MZ e Quiz Code na Google Play, a plataforma SisPoupa e iniciativas em desenvolvimento, criados em Moçambique.',
+      'Projectos e produtos da Learn Code: Road MZ e Quiz Code na Google Play, a plataforma SisPoupa, o website da YELA Corporation e iniciativas em desenvolvimento, criados em Moçambique.',
   },
   cursos: {
     path: '/cursos',
