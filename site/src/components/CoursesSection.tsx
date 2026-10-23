@@ -4,6 +4,8 @@ import { GraduationCap, Clock, CheckCircle2, ArrowRight, BarChart3, MessageSquar
 import { COURSES } from '../data/mockData';
 import { CourseItem } from '../types';
 import { SectionHeader, Accent } from './ui/SectionHeader';
+import { Reveal } from './ui/Reveal';
+
 import { btnPrimary, btnSecondary, cardHover, container, section } from '../lib/ui';
 
 const LEVELS = ['Todos', 'Iniciante', 'Intermédio', 'Avançado'] as const;
@@ -45,7 +47,7 @@ export const CoursesSection: React.FC = () => {
           })}
         </div>
 
-        <ul className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" aria-live="polite">
+        <Reveal as="ul" stagger className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" aria-live="polite">
           {filtered.map((course: CourseItem) => (
             <li key={course.id} id={course.id} className={`${cardHover} p-6 flex flex-col justify-between`}>
               <div className="space-y-4">
@@ -90,9 +92,9 @@ export const CoursesSection: React.FC = () => {
               </div>
             </li>
           ))}
-        </ul>
+        </Reveal>
 
-        <div className="mt-10 sm:mt-14 p-6 sm:p-8 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-5">
+        <Reveal className="mt-10 sm:mt-14 p-6 sm:p-8 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-5">
           <div>
             <h2 className="text-lg font-bold text-slate-900 dark:text-white">Datas, horários e turmas</h2>
             <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
@@ -103,7 +105,7 @@ export const CoursesSection: React.FC = () => {
             <MessageSquare className="w-4 h-4 text-emerald-600" aria-hidden="true" />
             <span>Falar com a Learn Code</span>
           </Link>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

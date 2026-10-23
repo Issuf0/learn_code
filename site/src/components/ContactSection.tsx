@@ -6,6 +6,7 @@ import {
 import { COMPANY_INFO, COURSES, SERVICES } from '../data/mockData';
 import { whatsappHref, mailtoHref } from '../config/site';
 import { SectionHeader, Accent } from './ui/SectionHeader';
+import { Reveal } from './ui/Reveal';
 import { btnPrimary, btnSecondary, btnWhatsApp, card, container, inputClass, labelClass, section } from '../lib/ui';
 
 type Track = 'projecto' | 'curso' | 'parceria' | 'geral';
@@ -294,7 +295,7 @@ export const ContactSection: React.FC = () => {
 
         <div className="mt-10 sm:mt-14 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Canais directos */}
-          <aside className="lg:col-span-5 space-y-6">
+          <Reveal as="section" aria-label="Canais directos" className="lg:col-span-5 space-y-6">
             <div className="space-y-1">
               <h2 className="text-xl font-bold text-slate-900 dark:text-white">Canais directos</h2>
               <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Se preferir, contacte-nos directamente pelo canal mais conveniente.</p>
@@ -348,10 +349,10 @@ export const ContactSection: React.FC = () => {
                 </a>
               </div>
             </div>
-          </aside>
+          </Reveal>
 
           {/* Formulário por percurso */}
-          <div className="lg:col-span-7 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 sm:p-8 shadow-sm">
+          <Reveal delay={120} className="lg:col-span-7 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 sm:p-8 shadow-sm">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2" role="group" aria-label="Escolher o tipo de pedido">
               {TRACKS.map((t) => {
                 const active = t.id === track;
@@ -498,7 +499,7 @@ export const ContactSection: React.FC = () => {
                 </div>
               </form>
             )}
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

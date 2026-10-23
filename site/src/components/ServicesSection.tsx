@@ -4,6 +4,8 @@ import { ArrowRight, CheckCircle, Layers } from 'lucide-react';
 import { SERVICES } from '../data/mockData';
 import { NamedIcon } from '../lib/icons';
 import { SectionHeader, Accent } from './ui/SectionHeader';
+import { Reveal } from './ui/Reveal';
+
 import { btnPrimary, btnSecondary, cardHover, container, section } from '../lib/ui';
 
 export const ServicesSection: React.FC = () => (
@@ -17,7 +19,7 @@ export const ServicesSection: React.FC = () => (
         lead="Desenvolvemos tecnologia à medida das necessidades de negócios e instituições em Moçambique."
       />
 
-      <ul className="mt-10 sm:mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <Reveal as="ul" stagger className="mt-10 sm:mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {SERVICES.map((service) => {
           const isCourse = service.id === 'tech-education';
           return (
@@ -56,9 +58,9 @@ export const ServicesSection: React.FC = () => (
             </li>
           );
         })}
-      </ul>
+      </Reveal>
 
-      <div className="mt-10 sm:mt-14 p-6 sm:p-8 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-5">
+      <Reveal className="mt-10 sm:mt-14 p-6 sm:p-8 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-5">
         <div>
           <h2 className="text-lg font-bold text-slate-900 dark:text-white">Não sabe por onde começar?</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
@@ -69,7 +71,7 @@ export const ServicesSection: React.FC = () => (
           <span>Vamos falar do seu projecto</span>
           <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </Link>
-      </div>
+      </Reveal>
     </div>
   </section>
 );

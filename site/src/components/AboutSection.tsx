@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Target, Compass, Building2, ArrowRight } from 'lucide-react';
 import { COMPANY_INFO } from '../data/mockData';
 import { SectionHeader, Accent } from './ui/SectionHeader';
+import { Reveal } from './ui/Reveal';
+
 import { btnPrimary, btnSecondary, card, container, section } from '../lib/ui';
 
 export const AboutSection: React.FC = () => (
@@ -17,7 +19,7 @@ export const AboutSection: React.FC = () => (
       />
 
       {/* Missão e visão */}
-      <div className="mt-10 sm:mt-14 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <Reveal stagger className="mt-10 sm:mt-14 grid grid-cols-1 md:grid-cols-2 gap-6">
         {[
           { icon: Target, title: 'Missão', quote: COMPANY_INFO.mission, text: 'Resolver desafios práticos com software robusto, inteligência artificial e formação técnica contínua.' },
           { icon: Compass, title: 'Visão', quote: COMPANY_INFO.vision, text: 'Construir um ecossistema tecnológico que represente o talento moçambicano, em Moçambique e além-fronteiras.' },
@@ -36,7 +38,7 @@ export const AboutSection: React.FC = () => (
             </div>
           </div>
         ))}
-      </div>
+      </Reveal>
 
       {/* Valores */}
       <div className="mt-10 sm:mt-14 space-y-6">
@@ -44,7 +46,7 @@ export const AboutSection: React.FC = () => (
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Os nossos valores</h2>
           <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">Os princípios que orientam as nossas decisões, entregas e relações.</p>
         </div>
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <Reveal as="ul" stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {COMPANY_INFO.values.map((val, idx) => (
             <li key={val.title} className={`${card} p-5 space-y-3`}>
               <div className="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 flex items-center justify-center text-blue-700 dark:text-blue-300 font-bold text-sm" aria-hidden="true">
@@ -54,12 +56,12 @@ export const AboutSection: React.FC = () => (
               <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{val.description}</p>
             </li>
           ))}
-        </ul>
+        </Reveal>
       </div>
 
       {/* Lema + CTA */}
-      <div className={`${card} mt-10 sm:mt-14 p-7 sm:p-10 text-center relative overflow-hidden rounded-3xl`}>
-        <div className="absolute -right-24 -top-24 w-80 h-80 bg-blue-400 rounded-full opacity-[0.06] blur-3xl pointer-events-none" aria-hidden="true" />
+      <Reveal className={`${card} mt-10 sm:mt-14 p-7 sm:p-10 text-center relative overflow-hidden rounded-3xl`}>
+        <div className="absolute -right-24 -top-24 w-80 h-80 bg-blue-400 rounded-full opacity-[0.06] blur-3xl pointer-events-none animate-lc-float" aria-hidden="true" />
         <div className="max-w-3xl mx-auto space-y-5 relative z-10">
           <blockquote className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-snug text-balance">
             “{COMPANY_INFO.slogan}”
@@ -75,7 +77,7 @@ export const AboutSection: React.FC = () => (
             <Link to="/projectos" className={btnSecondary}>Ver os nossos projectos</Link>
           </div>
         </div>
-      </div>
+      </Reveal>
     </div>
   </section>
 );

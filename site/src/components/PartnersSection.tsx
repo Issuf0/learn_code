@@ -4,6 +4,8 @@ import { Handshake, ExternalLink, ArrowRight, MapPin, CalendarDays, CheckCircle2
 import { PARTNERS, PROJECTS } from '../data/mockData';
 import { NamedIcon } from '../lib/icons';
 import { SectionHeader, Accent } from './ui/SectionHeader';
+import { Reveal } from './ui/Reveal';
+
 import { btnPrimary, btnSecondary, btnSoft, card, chip, container, section } from '../lib/ui';
 
 const PARTNERSHIP_TYPES = [
@@ -33,7 +35,7 @@ export const PartnersSection: React.FC = () => (
       />
 
       {/* Parceiros */}
-      <ul className="mt-10 sm:mt-14 space-y-6">
+      <Reveal as="ul" stagger className="mt-10 sm:mt-14 space-y-6">
         {PARTNERS.map((partner) => {
           const project = partner.projectRef ? PROJECTS.find((p) => p.id === partner.projectRef) : undefined;
           return (
@@ -101,7 +103,7 @@ export const PartnersSection: React.FC = () => (
             </li>
           );
         })}
-      </ul>
+      </Reveal>
 
       {/* Tipos de parceria */}
       <div className="mt-12 sm:mt-16 space-y-6">
@@ -109,7 +111,7 @@ export const PartnersSection: React.FC = () => (
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Que parcerias procuramos</h2>
           <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">Três formas de colaborar com a Learn Code. Se a sua ideia não se enquadra em nenhuma, fale connosco na mesma.</p>
         </div>
-        <ul className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <Reveal as="ul" stagger className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {PARTNERSHIP_TYPES.map((t) => (
             <li key={t.title} className={`${card} p-6 space-y-3`}>
               <CheckCircle2 className="w-6 h-6 text-blue-700 dark:text-blue-300" aria-hidden="true" />
@@ -117,11 +119,11 @@ export const PartnersSection: React.FC = () => (
               <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{t.text}</p>
             </li>
           ))}
-        </ul>
+        </Reveal>
       </div>
 
       {/* CTA */}
-      <div className={`${card} mt-10 sm:mt-14 p-6 sm:p-8 rounded-3xl flex flex-col md:flex-row md:items-center justify-between gap-5`}>
+      <Reveal className={`${card} mt-10 sm:mt-14 p-6 sm:p-8 rounded-3xl flex flex-col md:flex-row md:items-center justify-between gap-5`}>
         <div>
           <h2 className="text-lg font-bold text-slate-900 dark:text-white">Quer ser parceiro da Learn Code?</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Conte-nos quem é a sua organização e como imagina a colaboração. Respondemos pelo WhatsApp.</p>
@@ -130,7 +132,7 @@ export const PartnersSection: React.FC = () => (
           <span>Propor uma parceria</span>
           <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </Link>
-      </div>
+      </Reveal>
     </div>
   </section>
 );

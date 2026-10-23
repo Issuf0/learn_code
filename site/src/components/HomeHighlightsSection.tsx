@@ -5,6 +5,8 @@ import { SERVICES, PROJECTS, COURSES } from '../data/mockData';
 import { NamedIcon } from '../lib/icons';
 import { STATUS_STYLE } from '../lib/status';
 import { SectionHeader, Accent } from './ui/SectionHeader';
+import { Reveal } from './ui/Reveal';
+
 import { btnPrimary, btnSecondary, cardHover, container, section } from '../lib/ui';
 
 const FEATURED_SERVICE_IDS = ['web-dev', 'mobile-apps', 'ai-solutions'];
@@ -24,7 +26,7 @@ export const HomeHighlightsSection: React.FC = () => {
             eyebrowText="O que fazemos"
             title={<>Soluções digitais para o seu <Accent>negócio ou instituição.</Accent></>}
           />
-          <ul className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Reveal as="ul" stagger className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
             {featuredServices.map((service) => (
               <li key={service.id}>
                 <Link to={`/servicos#${service.id}`} className={`${cardHover} p-6 block h-full group`}>
@@ -40,7 +42,7 @@ export const HomeHighlightsSection: React.FC = () => {
                 </Link>
               </li>
             ))}
-          </ul>
+          </Reveal>
           <div className="mt-8 text-center">
             <Link to="/servicos" className={btnSecondary}>
               <span>Conhecer os nossos serviços</span>
@@ -58,7 +60,7 @@ export const HomeHighlightsSection: React.FC = () => {
             eyebrowText="Projectos em destaque"
             title={<>Produtos reais, <Accent>feitos em Moçambique.</Accent></>}
           />
-          <ul className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Reveal as="ul" stagger className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
             {featuredProjects.map((project) => {
               const status = STATUS_STYLE[project.status];
               return (
@@ -85,7 +87,7 @@ export const HomeHighlightsSection: React.FC = () => {
                 </li>
               );
             })}
-          </ul>
+          </Reveal>
           <div className="mt-8 text-center">
             <Link to="/projectos" className={btnPrimary}>
               <span>Ver os nossos projectos</span>
@@ -105,13 +107,13 @@ export const HomeHighlightsSection: React.FC = () => {
             title={<>Cursos práticos de programação <Accent>em Maputo.</Accent></>}
             lead={`${COURSES.length} cursos, do HTML ao Python Avançado, com duração clara e turmas em Maputo.`}
           />
-          <div className="flex flex-col sm:flex-row lg:justify-end gap-3">
+          <Reveal delay={150} className="flex flex-col sm:flex-row lg:justify-end gap-3">
             <Link to="/cursos" className={btnPrimary}>
               <span>Conhecer os cursos</span>
               <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </Link>
             <Link to="/contacto?tipo=curso" className={btnSecondary}>Inscrever-me num curso</Link>
-          </div>
+          </Reveal>
         </div>
       </section>
     </>

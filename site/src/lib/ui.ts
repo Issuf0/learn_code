@@ -21,7 +21,7 @@ export const container = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8';
 export const card =
   'rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm';
 
-export const cardHover = `${card} hover:border-blue-500 hover:shadow-md transition-all duration-300`;
+export const cardHover = `${card} hover:border-blue-500 hover:shadow-lg hover:-translate-y-1 transition-[border-color,box-shadow,transform] duration-300`;
 
 export const eyebrow =
   'inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 text-blue-700 dark:text-blue-300 text-xs font-semibold uppercase tracking-wider';

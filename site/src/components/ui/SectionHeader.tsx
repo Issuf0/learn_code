@@ -1,5 +1,6 @@
 import React from 'react';
 import { eyebrow } from '../../lib/ui';
+import { Reveal } from './Reveal';
 
 interface SectionHeaderProps {
   /** Nível semântico do título: h1 em páginas, h2 em secções da página inicial. */
@@ -23,7 +24,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
 }) => {
   const Heading = as;
   return (
-    <div className={`${align === 'center' ? 'text-center mx-auto' : 'text-left'} max-w-3xl space-y-4 ${className}`}>
+    <Reveal className={`${align === 'center' ? 'text-center mx-auto' : 'text-left'} max-w-3xl space-y-4 ${className}`}>
       <div className={eyebrow}>
         {icon}
         <span>{eyebrowText}</span>
@@ -32,7 +33,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
         {title}
       </Heading>
       {lead && <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed">{lead}</p>}
-    </div>
+    </Reveal>
   );
 };
 

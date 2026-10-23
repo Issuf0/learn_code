@@ -108,7 +108,7 @@ export const WhatsAppWidget: React.FC = () => {
         ref={toggleRef}
         type="button"
         onClick={() => setIsOpen((open) => !open)}
-        className="w-14 h-14 rounded-full bg-emerald-700 hover:bg-emerald-800 text-white shadow-xl shadow-emerald-700/30 transition-colors cursor-pointer inline-flex items-center justify-center"
+        className="w-14 h-14 rounded-full bg-emerald-700 hover:bg-emerald-800 text-white shadow-xl shadow-emerald-700/30 transition-[background-color,transform] hover:scale-105 active:scale-95 cursor-pointer inline-flex items-center justify-center animate-lc-pop"
         aria-label={isOpen ? 'Fechar conversa de WhatsApp' : 'Falar com a Learn Code no WhatsApp'}
         aria-expanded={isOpen}
         aria-controls={panelId}

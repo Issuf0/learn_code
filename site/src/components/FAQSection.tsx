@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { ChevronDown, HelpCircle, MessageSquare } from 'lucide-react';
 import { whatsappHref } from '../config/site';
 import { SectionHeader, Accent } from './ui/SectionHeader';
+import { Reveal } from './ui/Reveal';
+
 import { btnWhatsApp, section } from '../lib/ui';
 
 interface FAQItem {
@@ -56,7 +58,7 @@ export const FAQSection: React.FC = () => {
           lead="Respostas directas às dúvidas mais comuns sobre preços, prazos e como trabalhamos."
         />
 
-        <div className="mt-10 space-y-3">
+        <Reveal stagger className="mt-10 space-y-3">
           {FAQ_ITEMS.map((item, index) => {
             const isOpen = openIndex === index;
             const panelId = `faq-panel-${index}`;
@@ -94,15 +96,15 @@ export const FAQSection: React.FC = () => {
               </div>
             );
           })}
-        </div>
+        </Reveal>
 
-        <div className="mt-10 text-center space-y-3">
+        <Reveal className="mt-10 text-center space-y-3">
           <p className="text-sm text-slate-600 dark:text-slate-400">Não encontrou a resposta que procurava?</p>
           <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className={btnWhatsApp}>
             <MessageSquare className="w-4 h-4" aria-hidden="true" />
             <span>Perguntar no WhatsApp</span>
           </a>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
