@@ -66,7 +66,7 @@ export const FAQSection: React.FC = () => {
             return (
               <div
                 key={item.question}
-                className={`rounded-2xl border transition-colors ${
+                className={`rounded-2xl border transition-[background-color,border-color,box-shadow] duration-300 ${
                   isOpen
                     ? 'bg-slate-50 dark:bg-slate-800/50 border-blue-200 dark:border-blue-900 shadow-sm'
                     : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
@@ -82,17 +82,34 @@ export const FAQSection: React.FC = () => {
                     className="w-full flex items-center justify-between gap-4 px-5 sm:px-6 py-4 sm:py-5 text-left cursor-pointer rounded-2xl"
                   >
                     <span className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">{item.question}</span>
-                    <ChevronDown
-                      className={`w-5 h-5 text-blue-700 dark:text-blue-300 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                    <span
+                      className={`w-8 h-8 shrink-0 rounded-full inline-flex items-center justify-center transition-colors duration-300 ${
+                        isOpen ? 'bg-blue-700 text-white' : 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300'
+                      }`}
                       aria-hidden="true"
-                    />
+                    >
+                      <ChevronDown className={`w-4 h-4 transition-transform duration-300 ease-out ${isOpen ? 'rotate-180' : ''}`} />
+                    </span>
                   </button>
                 </h3>
-                {isOpen && (
-                  <div id={panelId} role="region" aria-labelledby={buttonId} className="px-5 sm:px-6 pb-5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed animate-lc-fade-in">
-                    {item.answer}
+                {/* A altura anima de 0fr para 1fr; fechada, a resposta fica inert (sem foco nem leitura). */}
+                <div
+                  id={panelId}
+                  role="region"
+                  aria-labelledby={buttonId}
+                  inert={!isOpen}
+                  className={`grid transition-[grid-template-rows] duration-300 ease-out ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
+                >
+                  <div className="overflow-hidden">
+                    <p
+                      className={`px-5 sm:px-6 pb-5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed transition-[opacity,transform] duration-300 ease-out ${
+                        isOpen ? 'opacity-100 translate-y-0 delay-75' : 'opacity-0 -translate-y-1'
+                      }`}
+                    >
+                      {item.answer}
+                    </p>
                   </div>
-                )}
+                </div>
               </div>
             );
           })}
