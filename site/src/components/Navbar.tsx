@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
-import { Menu, X, MessageSquare, Sun, Moon, MonitorSmartphone } from 'lucide-react';
-import { whatsappHref } from '../config/site';
+import { Menu, Sun, Moon, MonitorSmartphone } from 'lucide-react';
+import { MobileMenu } from './MobileMenu';
 import { ThemeMode } from '../types';
 import logoIcon from '../assets/images/learncode-icon.png';
 
@@ -41,6 +41,7 @@ export const Navbar: React.FC<NavbarProps> = ({ themeMode, onChangeTheme }) => {
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -54,15 +55,15 @@ export const Navbar: React.FC<NavbarProps> = ({ themeMode, onChangeTheme }) => {
     setMobileMenuOpen(false);
   }, [location.pathname]);
 
-  // Escape fecha o menu móvel.
+  // Fecha o painel se o ecrã passar para desktop.
   useEffect(() => {
-    if (!mobileMenuOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setMobileMenuOpen(false);
-    };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, [mobileMenuOpen]);
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const onChange = (e: MediaQueryListEvent) => e.matches && setMobileMenuOpen(false);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+
+  const closeMenu = React.useCallback(() => setMobileMenuOpen(false), []);
 
   const themeButtonProps = {
     onClick: () => onChangeTheme(THEME_CYCLE[themeMode]),
@@ -134,70 +135,29 @@ export const Navbar: React.FC<NavbarProps> = ({ themeMode, onChangeTheme }) => {
           {/* Controlo do menu (mobile e tablet) */}
           <div className="flex lg:hidden items-center gap-2">
             <button
+              ref={menuButtonRef}
               type="button"
-              {...themeButtonProps}
-              className="w-11 h-11 inline-flex items-center justify-center rounded-xl text-slate-500 hover:text-blue-700 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-blue-300 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 cursor-pointer"
-            >
-              <ThemeIcon mode={themeMode} className="w-5 h-5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen((open) => !open)}
+              onClick={() => setMobileMenuOpen(true)}
               className="w-11 h-11 inline-flex items-center justify-center rounded-xl text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 cursor-pointer"
-              aria-label={mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
+              aria-label="Abrir menu"
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
+              aria-haspopup="dialog"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
+              <Menu className="w-6 h-6" aria-hidden="true" />
             </button>
           </div>
         </div>
 
-        {/* Menu móvel */}
-        {mobileMenuOpen && (
-          <div
-            id="mobile-menu"
-            className="lg:hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-4 pt-3 pb-5 shadow-xl animate-lc-slide-down max-h-[calc(100dvh-5rem)] overflow-y-auto"
-          >
-            <ul className="space-y-1">
-              {NAV_LINKS.map((link) => (
-                <li key={link.path}>
-                  <NavLink
-                    to={link.path}
-                    end={link.path === '/'}
-                    className={({ isActive }) =>
-                      `block w-full px-4 py-3 rounded-xl text-base font-medium transition-colors ${
-                        isActive
-                          ? 'text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/40 font-semibold'
-                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
-                      }`
-                    }
-                  >
-                    {link.label}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-            <div className="pt-3 mt-3 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-2">
-              <Link
-                to="/contacto?tipo=projecto"
-                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-bold text-white bg-blue-700 hover:bg-blue-800"
-              >
-                Vamos falar do seu projecto
-              </Link>
-              <a
-                href={whatsappHref()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700"
-              >
-                <MessageSquare className="w-4 h-4 text-emerald-600" aria-hidden="true" />
-                <span>Falar no WhatsApp</span>
-              </a>
-            </div>
-          </div>
-        )}
       </nav>
+
+      <MobileMenu
+        open={mobileMenuOpen}
+        onClose={closeMenu}
+        themeMode={themeMode}
+        onChangeTheme={onChangeTheme}
+        returnFocusRef={menuButtonRef}
+      />
     </header>
   );
 };
