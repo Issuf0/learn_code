@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { X, CheckCircle2, ArrowRight, Users, ExternalLink, AlertTriangle, Lightbulb } from 'lucide-react';
 import { ProjectItem } from '../types';
@@ -13,7 +13,31 @@ interface ProjectModalProps {
 
 const FOCUSABLE = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
 
-export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
+const EXIT_MS = 220;
+
+const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+export const ProjectModal: React.FC<ProjectModalProps> = ({ project: requested, onClose }) => {
+  // Mantém o último projecto montado durante a animação de saída.
+  const [project, setProject] = useState<ProjectItem | null>(requested);
+  const [closing, setClosing] = useState(false);
+
+  useEffect(() => {
+    if (requested) {
+      setProject(requested);
+      setClosing(false);
+      return;
+    }
+    if (!project) return;
+    setClosing(true);
+    const timer = setTimeout(() => {
+      setProject(null);
+      setClosing(false);
+    }, prefersReducedMotion() ? 0 : EXIT_MS);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [requested]);
+
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -64,7 +88,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
   return (
     <div
-      className="fixed inset-0 z-[70] flex items-end sm:items-center justify-center sm:p-4 bg-slate-900/60 backdrop-blur-sm animate-lc-fade-in"
+      className={`fixed inset-0 z-[70] flex items-end sm:items-center justify-center sm:p-4 bg-slate-900/60 backdrop-blur-sm lc-overlay${closing ? ' is-closing' : ''}`}
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -74,7 +98,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="relative w-full sm:max-w-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-t-3xl sm:rounded-2xl shadow-2xl overflow-hidden max-h-[calc(100dvh-1rem)] sm:max-h-[90vh] flex flex-col animate-lc-slide-up"
+        className={`relative w-full sm:max-w-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-t-3xl sm:rounded-2xl shadow-2xl overflow-hidden max-h-[calc(100dvh-1rem)] sm:max-h-[90vh] flex flex-col lc-dialog${closing ? ' is-closing' : ''}`}
       >
         {/* Cabeçalho */}
         <div className="p-5 sm:p-6 bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 flex items-start justify-between gap-3">
@@ -107,7 +131,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
         </div>
 
         {/* Corpo */}
-        <div className="p-5 sm:p-6 overflow-y-auto space-y-6 text-sm text-slate-600 dark:text-slate-400">
+        <div className="p-5 sm:p-6 overflow-y-auto space-y-6 text-sm text-slate-600 dark:text-slate-400 lc-modal-stagger">
           <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-base">{project.summary}</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

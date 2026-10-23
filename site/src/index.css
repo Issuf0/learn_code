@@ -90,6 +90,31 @@
   }
 }
 
+/* Janela de detalhes do projecto: entrada, saída e conteúdo escalonado. */
+@keyframes lc-overlay-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes lc-overlay-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes lc-sheet-in { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes lc-sheet-out { from { transform: none; } to { transform: translateY(100%); } }
+@keyframes lc-pop-in { from { opacity: 0; transform: translateY(16px) scale(0.96); } to { opacity: 1; transform: none; } }
+@keyframes lc-pop-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(8px) scale(0.98); } }
+@keyframes lc-rise-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+@layer components {
+  .lc-overlay { animation: lc-overlay-in 220ms ease-out both; }
+  .lc-overlay.is-closing { animation: lc-overlay-out 200ms ease-in both; }
+  .lc-dialog { animation: lc-sheet-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .lc-dialog.is-closing { animation: lc-sheet-out 220ms ease-in both; }
+  @media (min-width: 640px) {
+    .lc-dialog { animation-name: lc-pop-in; animation-duration: 340ms; }
+    .lc-dialog.is-closing { animation-name: lc-pop-out; animation-duration: 180ms; }
+  }
+  .lc-modal-stagger > * { animation: lc-rise-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .lc-modal-stagger > :nth-child(1) { animation-delay: 120ms; }
+  .lc-modal-stagger > :nth-child(2) { animation-delay: 190ms; }
+  .lc-modal-stagger > :nth-child(3) { animation-delay: 260ms; }
+  .lc-modal-stagger > :nth-child(n + 4) { animation-delay: 330ms; }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
